@@ -30,10 +30,15 @@ namespace AdidasBot
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
             var chromeOptions = new OpenQA.Selenium.Chrome.ChromeOptions();
-             
-            chromeOptions.AddHttpProxy("46.150.254.217", 52879, "FU8cdVUd", "CuAjzPf1");
-         //   chromeOptions.AddArguments(new List<string>() { "no-sandbox", "headless", "disable-gpu" });
+
+           chromeOptions.AddHttpProxy("46.150.254.217", 52879, "FU8cdVUd", "CuAjzPf1");
+            //   chromeOptions.AddArguments(new List<string>() { "no-sandbox", "headless", "disable-gpu" });
             //    chromeOptions.AddArgument("disable-gpu");
 
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
@@ -57,10 +62,10 @@ namespace AdidasBot
 
             IWebElement emailInput = browser.FindElement(By.Id("login-email"));
             IWebElement passwordInput = browser.FindElement(By.Id("login-password"));
-            emailInput.SendKeys("TIMA.ARSLANOV.20@BK.RU");
-            passwordInput.SendKeys("Navi228131");
+            emailInput.SendKeys(loginField.Text);
+            passwordInput.SendKeys(PassField.Text);
 
-            
+
 
             Thread.Sleep(1000);
 
@@ -68,11 +73,11 @@ namespace AdidasBot
             loginBtn.Click();
 
             Thread.Sleep(1000);
-            browser.Navigate().GoToUrl("https://www.adidas.ru/krossovki-ozweego-celox/H04234.html");
+            browser.Navigate().GoToUrl(LinkField.Text);
 
             Thread.Sleep(1000);
 
-            IWebElement sizeInput = browser.FindElement(By.XPath("//span[.='42 RU']"));
+            IWebElement sizeInput = browser.FindElement(By.XPath($"//span[.='{SizeField.Text} RU']"));
             sizeInput.Click();
 
 
@@ -102,10 +107,10 @@ namespace AdidasBot
             IWebElement shipmentStreet = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-address1']"));
             IWebElement shipmentHouse = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-houseNumber']"));
             IWebElement shipmentApartNum = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-apartmentNumber']"));
-            IWebElement shipmentPhoneNum = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-phoneNumber']"));
+            IWebElement shipmentPhoneNum = browser.FindElement(By.Id("contact-phoneNumber"));
 
             shipmentFName.SendKeys(OpenQA.Selenium.Keys.Control + "a");
-            shipmentFName.SendKeys(OpenQA.Selenium.Keys.Delete) ;
+            shipmentFName.SendKeys(OpenQA.Selenium.Keys.Delete);
 
             shipmentLName.SendKeys(OpenQA.Selenium.Keys.Control + "a");
             shipmentLName.SendKeys(OpenQA.Selenium.Keys.Delete);
@@ -131,15 +136,46 @@ namespace AdidasBot
             shipmentPhoneNum.SendKeys(OpenQA.Selenium.Keys.Delete);
 
 
+            Thread.Sleep(2000);
+
+            
+           IWebElement shipmentAdressRepeat = browser.FindElement(By.CssSelector("[data-auto-id='save-selected-address-checkbox']"));
+            shipmentAdressRepeat.Click();
+
+            Thread.Sleep(2000);
+
+            IWebElement shipmentConifirmition = browser.FindElement(By.CssSelector("[data-auto-id='explicit-consent-checkbox']"));
+            shipmentConifirmition.Click();
+
+            Thread.Sleep(1000);
+
+            shipmentFName.SendKeys(FNameField.Text);
+            shipmentLName.SendKeys(LNameField.Text);
+            shipmentCity.SendKeys(CityField.Text);
+            shipmentZipCode.SendKeys(ZipField.Text);
+            shipmentStreet.SendKeys(StreetField.Text);
+            shipmentHouse.SendKeys(HouseField.Text);
+            shipmentApartNum.SendKeys(ApartField.Text);
+            shipmentPhoneNum.SendKeys(PhoneField.Text);
+
+
+
+            Thread.Sleep(1000);
+
+            IWebElement continueBuy = browser.FindElement(By.XPath("//span[.='Продолжить оформление']"));
+            continueBuy.Click();
+
+            Thread.Sleep(10000);
+
+            IWebElement continueBuy2 = browser.FindElement(By.XPath("//span[.='Банковская карта']"));
+            continueBuy2.Click();
+
+            
 
 
 
 
-
-
-
-
-
+            /*
 
             string FName = "Какое-то имя";
             string LName = "Какая-то фамилия";
@@ -150,14 +186,11 @@ namespace AdidasBot
             string Apartament = "Какая-то квартира";
             string Phone = "7777777777";
 
-            shipmentFName.SendKeys(FName);
-            shipmentLName.SendKeys(LName);
-            shipmentCity.SendKeys(City);
-            shipmentZipCode.SendKeys(Zip);
-            shipmentStreet.SendKeys(Street);
-            shipmentHouse.SendKeys(House);
-            shipmentApartNum.SendKeys(Apartament);
-            shipmentPhoneNum.SendKeys(Phone);
+
+
+            */
+
+            
 
 
 
@@ -168,11 +201,37 @@ namespace AdidasBot
 
 
 
+
+
+
+
+
+
+
+
+
+
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-          
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PhoneField_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
