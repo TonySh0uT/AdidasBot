@@ -11,6 +11,8 @@ using OpenQA.Selenium;
 using System.Threading;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Chrome.ChromeDriverExtensions;
+using OpenQA.Selenium.Interactions;
+
 
 
 namespace AdidasBot
@@ -47,7 +49,7 @@ namespace AdidasBot
             }
             catch
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 CheckingAddingToCartTC();
             }
 
@@ -85,9 +87,9 @@ namespace AdidasBot
 
             var chromeOptions = new OpenQA.Selenium.Chrome.ChromeOptions();
 
-           chromeOptions.AddHttpProxy("46.150.254.217", 52879, "FU8cdVUd", "CuAjzPf1");
+//           chromeOptions.AddHttpProxy("46.150.254.217", 52879, "FU8cdVUd", "CuAjzPf1");
             //   chromeOptions.AddArguments(new List<string>() { "no-sandbox", "headless", "disable-gpu" });
-            //    chromeOptions.AddArgument("disable-gpu");
+                chromeOptions.AddArguments("--blink-settings=imagesEnabled=false", "--disable-remote-fonts", "--disable-login-animations", "--disable-modal-animations", "--animation-duration-scale=0", "--hide-icons");
 
             var chromeDriverService = ChromeDriverService.CreateDefaultService();
             chromeDriverService.HideCommandPromptWindow = true;
@@ -105,7 +107,7 @@ namespace AdidasBot
 
 
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
 
             IWebElement emailInput = browser.FindElement(By.Id("login-email"));
@@ -115,22 +117,22 @@ namespace AdidasBot
 
 
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             IWebElement loginBtn = browser.FindElement(By.CssSelector("[data-auto-id='login-form-login']"));
             loginBtn.Click();
 
-            Thread.Sleep(1000);
+            Thread.Sleep(5000);
             browser.Navigate().GoToUrl(LinkField.Text);
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             IWebElement sizeInput = browser.FindElement(By.XPath($"//span[.='{SizeField.Text} RU']"));
             sizeInput.Click();
 
 
 
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             IWebElement buy = browser.FindElement(By.XPath("//span[.='Добавить в корзину']"));
             buy.Click();
@@ -139,7 +141,7 @@ namespace AdidasBot
 
             try
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(2000);
                 IWebElement order = browser.FindElement(By.XPath("//span[.='ОФОРМИТЬ']"));
                 order.Click();
          
@@ -148,17 +150,17 @@ namespace AdidasBot
             {
                 Thread.Sleep(30000);
                 sizeInput.Click();
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 buy = browser.FindElement(By.XPath("//span[.='Добавить в корзину']"));
                 buy.Click();
-                Thread.Sleep(3000);
+                Thread.Sleep(1000);
                 IWebElement order = browser.FindElement(By.XPath("//span[.='ОФОРМИТЬ']"));
                 order.Click();
             }
 
 
           
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
 
 
           
@@ -211,13 +213,13 @@ namespace AdidasBot
             shipmentPhoneNum.SendKeys(OpenQA.Selenium.Keys.Delete);
 
 
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             
            IWebElement shipmentAdressRepeat = browser.FindElement(By.CssSelector("[data-auto-id='save-selected-address-checkbox']"));
             shipmentAdressRepeat.Click();
 
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             IWebElement shipmentConifirmition = browser.FindElement(By.CssSelector("[data-auto-id='explicit-consent-checkbox']"));
             shipmentConifirmition.Click();
@@ -239,7 +241,7 @@ namespace AdidasBot
 
             IWebElement continueBuy = browser.FindElement(By.XPath("//span[.='Продолжить оформление']"));
             continueBuy.Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(1000);
 
             try
             {
@@ -249,42 +251,70 @@ namespace AdidasBot
 
             
 
-            Thread.Sleep(10000);
+         //   Thread.Sleep(10000);
 
 
-            IWebElement continueBuy2 = browser.FindElement(By.XPath("//div[@data-qa-payment-option-preview-type='anyCard']//div[@class='Text__StyledTextDiv-sc-9bqqn7-1 kxjlbW qa-payment-option-title Preview__StyledTitle-aie99n-0 QtQbL']"));
-            continueBuy2.Click();
+            //      IWebElement continueBuy2 = browser.FindElement(By.XPath("//div[@data-qa-payment-option-preview-type='anyCard']//div[@class='Text__StyledTextDiv-sc-9bqqn7-1 kxjlbW qa-payment-option-title Preview__StyledTitle-aie99n-0 QtQbL']"));
+        //    IWebElement continueBuy2 = browser.FindElement(By.LinkText("Банковская карта"));
+
+
+            //new Actions(browser).MoveToElement(element).MoveByOffset(dx, dy).Click().Perform();
+
+
+            browser.Manage().Window.Size = new Size(500,500);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)browser;
+            Thread.Sleep(2000);
+            js.ExecuteScript("window.scrollBy(0,300)", "");
+            //continueBuy2.Click();
+            Thread.Sleep(4000);
+
+            Actions act = new Actions(browser);
+            act.MoveByOffset(200, 100).Click().Perform();
+
+            Thread.Sleep(1000);
+
+            Actions act2 = new Actions(browser);
+            act2.SendKeys("5404364262171722").Perform();
+
+            Thread.Sleep(500);
+
+            Actions act4 = new Actions(browser);
+            Thread.Sleep(500);
+            act4.SendKeys("07").Perform();
+            Actions act5 = new Actions(browser);
+            Thread.Sleep(100);
+
+            Actions act6 = new Actions(browser);
+            Thread.Sleep(500);
+            act6.SendKeys("23").Perform();
+            Actions act7 = new Actions(browser);
+            Thread.Sleep(100);
+
+            Actions act8 = new Actions(browser);
+            Thread.Sleep(500);
+            act8.SendKeys("968").Perform();
+            Actions act9 = new Actions(browser);
+            Thread.Sleep(100);
+
+            Actions act10 = new Actions(browser);
+            Thread.Sleep(500);
+            act10.SendKeys(OpenQA.Selenium.Keys.Enter).Perform();
 
 
 
-            
+
+
+         
 
 
 
 
 
-
-        /*
-
-        string FName = "Какое-то имя";
-        string LName = "Какая-то фамилия";
-        string City = "Город 1";
-        string Zip = "123456";
-        string Street = "Какая-то улица";
-        string House = "Какой-то дом";
-        string Apartament = "Какая-то квартира";
-        string Phone = "7777777777";
+            //  browser.Quit();
+            //  Application.Exit();
 
 
-
-        */
-
-
-
-
-
-        //  browser.Quit();
-        //  Application.Exit();
+        
 
 
 
@@ -297,11 +327,7 @@ namespace AdidasBot
 
 
 
-
-
-
-
-    }
+        }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
