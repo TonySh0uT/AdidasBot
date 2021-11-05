@@ -18,8 +18,7 @@ namespace AdidasBot
     public partial class Form1 : Form
     {
         IWebDriver browser;
-
-       
+              
 
 
         public Form1()
@@ -29,8 +28,57 @@ namespace AdidasBot
 
         private void Form1_Load(object sender, EventArgs e)
         {
+           
+        }
+
+        private void CheckingAddingToCartTC()
+        {
+            try
+            {
+                IWebElement shipmentFName = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-firstName']"));
+                IWebElement shipmentLName = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-lastName']"));
+                IWebElement shipmentCity = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-city']"));
+                IWebElement shipmentZipCode = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-zipcode']"));
+
+                IWebElement shipmentStreet = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-address1']"));
+                IWebElement shipmentHouse = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-houseNumber']"));
+                IWebElement shipmentApartNum = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-apartmentNumber']"));
+                IWebElement shipmentPhoneNum = browser.FindElement(By.Id("contact-phoneNumber"));
+            }
+            catch
+            {
+                Thread.Sleep(2000);
+                CheckingAddingToCartTC();
+            }
 
         }
+
+
+        private void ContinueBuyingTC()
+        {
+            try
+            {
+
+            }
+
+            catch
+            {
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -86,18 +134,43 @@ namespace AdidasBot
 
             IWebElement buy = browser.FindElement(By.XPath("//span[.='Добавить в корзину']"));
             buy.Click();
-            Thread.Sleep(30000);
-            sizeInput.Click();
-            Thread.Sleep(1000);
-            buy = browser.FindElement(By.XPath("//span[.='Добавить в корзину']"));
-            buy.Click();
+
+
+
+            try
+            {
+                Thread.Sleep(3000);
+                IWebElement order = browser.FindElement(By.XPath("//span[.='ОФОРМИТЬ']"));
+                order.Click();
+         
+            }
+            catch
+            {
+                Thread.Sleep(30000);
+                sizeInput.Click();
+                Thread.Sleep(1000);
+                buy = browser.FindElement(By.XPath("//span[.='Добавить в корзину']"));
+                buy.Click();
+                Thread.Sleep(3000);
+                IWebElement order = browser.FindElement(By.XPath("//span[.='ОФОРМИТЬ']"));
+                order.Click();
+            }
+
+
+          
             Thread.Sleep(3000);
 
 
-            IWebElement order = browser.FindElement(By.XPath("//span[.='ОФОРМИТЬ']"));
-            order.Click();
+          
+            CheckingAddingToCartTC();
 
-            Thread.Sleep(3000);
+
+
+
+
+
+
+
 
             IWebElement shipmentFName = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-firstName']"));
             IWebElement shipmentLName = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-lastName']"));
@@ -108,6 +181,8 @@ namespace AdidasBot
             IWebElement shipmentHouse = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-houseNumber']"));
             IWebElement shipmentApartNum = browser.FindElement(By.CssSelector("[data-auto-id='shippingAddress-apartmentNumber']"));
             IWebElement shipmentPhoneNum = browser.FindElement(By.Id("contact-phoneNumber"));
+
+
 
             shipmentFName.SendKeys(OpenQA.Selenium.Keys.Control + "a");
             shipmentFName.SendKeys(OpenQA.Selenium.Keys.Delete);
@@ -164,42 +239,52 @@ namespace AdidasBot
 
             IWebElement continueBuy = browser.FindElement(By.XPath("//span[.='Продолжить оформление']"));
             continueBuy.Click();
+            Thread.Sleep(4000);
+
+            try
+            {
+                continueBuy.Click();
+            }
+            catch{}
+
+            
 
             Thread.Sleep(10000);
 
-            IWebElement continueBuy2 = browser.FindElement(By.XPath("//span[.='Банковская карта']"));
+
+            IWebElement continueBuy2 = browser.FindElement(By.XPath("//div[@data-qa-payment-option-preview-type='anyCard']//div[@class='Text__StyledTextDiv-sc-9bqqn7-1 kxjlbW qa-payment-option-title Preview__StyledTitle-aie99n-0 QtQbL']"));
             continueBuy2.Click();
 
+
+
             
 
 
 
 
-            /*
-
-            string FName = "Какое-то имя";
-            string LName = "Какая-то фамилия";
-            string City = "Город 1";
-            string Zip = "123456";
-            string Street = "Какая-то улица";
-            string House = "Какой-то дом";
-            string Apartament = "Какая-то квартира";
-            string Phone = "7777777777";
 
 
+        /*
 
-            */
-
-            
+        string FName = "Какое-то имя";
+        string LName = "Какая-то фамилия";
+        string City = "Город 1";
+        string Zip = "123456";
+        string Street = "Какая-то улица";
+        string House = "Какой-то дом";
+        string Apartament = "Какая-то квартира";
+        string Phone = "7777777777";
 
 
 
-            //  browser.Quit();
-            //  Application.Exit();
+        */
 
 
 
 
+
+        //  browser.Quit();
+        //  Application.Exit();
 
 
 
@@ -212,7 +297,11 @@ namespace AdidasBot
 
 
 
-        }
+
+
+
+
+    }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
